@@ -1,0 +1,6 @@
+data/
+runs/
+SCVD/
+*.pth
+*.zip
+__pycache__/
