@@ -1,0 +1,23 @@
+# Data paths (can be a single string or a list of strings)
+train_dirs:
+  - "/home/adrian/fight_detection/data/RWF-2000/train"
+  - "/home/adrian/fight_detection/data/fight-detection-surv-dataset/train"
+  - "/home/adrian/fight_detection/data/RLVSD_Kaggle"
+  - "/home/adrian/fight_detection/data/NTU_CCTV_dataset"
+val_dir: 
+  - "/home/adrian/fight_detection/data/RWF-2000/val"
+  - "/home/adrian/fight_detection/data/fight-detection-surv-dataset/val"
+
+# Hyperparameters
+num_frames: 16
+batch_size: 8
+learning_rate: 0.0002
+epochs: 80
+image_size: 312
+
+# Architecture & Loss
+network_name: "ViolenceX3D" # Options: FightDetectionModel, CNNGRU, ViolenceX3D
+num_classes: 1 # 1 = BCE (Binary), 2 = CrossEntropy (Multi-class)
+loss_type: BCEWithLogitsLoss
+# Logging
+log_grad_norm: true

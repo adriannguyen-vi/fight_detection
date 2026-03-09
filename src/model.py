@@ -114,15 +114,17 @@ class CNNGRU(nn.Module):
         out = self.fc(r_out[:, -1, :])
         return out
 
-class X3D(nn.Module):
-    def __init__(self, num_classes=2, model_version="x3d_m", pretrained=True):
-
-        self.model = torch.hub.load('facebookresearch/pytorchvideo', model_version, pretrained=pretrained)
-        in_features = self.model.blocks.proj.in_features
-        self.model.blocks.proj = nn.Linear(in_features, num_classes)
+class ViolenceX3D(nn.Module):
+    def __init__(self, num_classes=2, model_version="x3d_xl", pretrained=True):
+        super(ViolenceX3D, self).__init__()
+        self.x3d = torch.hub.load('facebookresearch/pytorchvideo', model_version, pretrained=pretrained,  force_reload=True)
+        in_features = self.x3d.blocks[-1].proj.in_features
+        self.x3d.blocks[-1].proj = nn.Linear(in_features=in_features, out_features=num_classes)
 
     def forward(self, x):
-        print(f"In X3D, x.shape:",x.shape)
-        x = self.model(x)
+        # print(f"In X3D, x.shape:",x.shape)
+        bs, frames, c, h, w = x.shape
+        x = x.reshape(bs, c, frames, h, w)
+        x = self.x3d(x)
         return x
     
