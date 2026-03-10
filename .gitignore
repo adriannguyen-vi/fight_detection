@@ -4,3 +4,7 @@ SCVD/
 *.pth
 *.zip
 __pycache__/
+debug_vid/
+
+*.pth
+*.png
